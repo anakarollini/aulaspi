@@ -18,19 +18,23 @@
 	<form action="/eventos" method="post">
 
 		<div>
-			<label>Nome:</label> <input type="text" name="nome">
+			<input type="hidden" name="id" value="${evento.id}" readonly="readonly">
+		</div>
+		
+		<div>
+			<label>Nome:</label> <input type="text" name="nome" value="${evento.nome}">
 		</div>
 
 		<div>
-			<label>Local:</label> <input type="text" name="local">
+			<label>Local:</label> <input type="text" name="local" value="${evento.local}">
 		</div>
 
 		<div>
-			<label>Data:</label> <input type="text" name="data">
+			<label>Data:</label> <input type="text" name="data" value="${evento.data}">
 		</div>
 
 		<div>
-			<label>Horário:</label> <input type="text" name="horario">
+			<label>Horário:</label> <input type="text" name="horario" value="${evento.horario}">
 		</div>
 
 		<div>
