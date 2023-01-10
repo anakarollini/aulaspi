@@ -24,6 +24,7 @@
 		<th>Local</th>
 		<th>Data</th>
 		<th>Horário</th>
+		<th></th>
 		</tr>
 	</thead>
 	
@@ -34,6 +35,7 @@
 		<td th:text="${e.local}">Clube</td>
 		<td th:text="${e.data}">26/12/2022</td>
 		<td th:text="${e.horario}">19:00</td>
+		<td><a th:href="@{/eventos/{id}/remover(id=${e.id})}">Deletar</a></td>
 		</tr>
 	</tbody>
 	
