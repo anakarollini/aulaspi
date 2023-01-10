@@ -1,3 +1,4 @@
+
 package ifrn.pi.eventos.controllers;
 
 import java.util.List;
@@ -22,11 +23,15 @@ public class EventosController {
 
 	@Autowired
 	private EventoRepository er;
-  cadastrando-convidado
+
 	@Autowired
 	private ConvidadoRepository cr;
 	
 
+  cadastrando-convidado
+	@Autowired
+	private ConvidadoRepository cr;
+	
 
   main
 	@GetMapping("/form")
@@ -115,6 +120,40 @@ public class EventosController {
 		md.addObject("evento", evento);
 		
 		return md;
+	}
+	
+	@PostMapping("/{idEvento}")
+	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado) {
+		
+		System.out.println("Id do evento: " + idEvento);
+		System.out.println(convidado);
+		
+		Optional<Evento> opt = er.findById(idEvento);
+		if(opt.isEmpty()) {
+			return "redirect:/eventos";
+		}
+		
+		Evento evento = opt.get();
+		convidado.setEvento(evento);
+		
+		cr.save(convidado);
+		
+		return "redirect:/eventos/{idEventos}";
+	}
+	
+	@GetMapping("/{id}/remover")
+	public String apagarEvento(@PathVariable Long id) {
+		
+		Optional<Evento> opt = er.findById(id);
+		
+		if(!opt.isEmpty()){
+			Evento evento = opt.get();
+			
+			
+			er.delete(evento);
+		}
+		
+		return "redirect:/eventos";
 	}
 
 }
