@@ -23,26 +23,15 @@ public class EventosController {
 
 	@Autowired
 	private EventoRepository er;
-
 	@Autowired
 	private ConvidadoRepository cr;
-	
 
-  cadastrando-convidado
-	@Autowired
-	private ConvidadoRepository cr;
 	
-
-  main
 	@GetMapping("/form")
 	public String form() {
 		return "eventos/formEvento";
 	}
-  cadastrando-convidado
-	
-
-
-  main
+  
 	@PostMapping
 	public String adicionar(Evento evento) {
 		System.out.println(evento);
@@ -52,7 +41,7 @@ public class EventosController {
 	}
 	
 	@GetMapping
-	public ModelAndView listar() {
+	public ModelAndView lista() {
 		List<Evento> eventos = er.findAll();
 		ModelAndView mv = new ModelAndView("eventos/lista");
 		mv.addObject("eventos", eventos);
@@ -60,7 +49,7 @@ public class EventosController {
 	}
 	
 	@GetMapping("/{id}")
-	public ModelAndView detalhar(@PathVariable Long id) {
+	public ModelAndView detalhes(@PathVariable Long id) {
 		ModelAndView md = new ModelAndView();
 		Optional<Evento> opt = er.findById(id);
 		if(opt.isEmpty()) {
@@ -80,7 +69,7 @@ public class EventosController {
 	}
 	
 	@PostMapping("/{idEvento}")
-	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado) {
+	public String salvarConvidados(@PathVariable Long idEvento, Convidado convidado) {
 		
 		System.out.println("Id do evento: " + idEvento);
 		System.out.println(convidado);
@@ -149,6 +138,9 @@ public class EventosController {
 		if(!opt.isEmpty()){
 			Evento evento = opt.get();
 			
+			List<Convidado> convidados = cr.findByEvento(evento);
+			
+			cr.deleteAll(convidados);
 			
 			er.delete(evento);
 		}
